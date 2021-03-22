@@ -8,7 +8,6 @@ export const SubmitButton = ({
   title,
   style,
   fontSize,
-  testID,
   disable = false,
   modal = false,
   ...rest
@@ -17,7 +16,6 @@ export const SubmitButton = ({
   return (
     <Item>
       <Button
-        testID={testID}
         style={{...style}}
         title={title}
         onPress={handleSubmit((data, e) => onSubmit(data, e, reset))}
@@ -36,5 +34,4 @@ SubmitButton.propTypes = {
   modal: PropTypes.bool,
   style: PropTypes.object,
   fontSize: PropTypes.string,
-  testID: PropTypes.string.isRequired,
 };

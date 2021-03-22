@@ -1,12 +1,25 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import React from 'react';
+import {Text, Button} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Container} from '../../components/Form';
+import {Group, ButtonGroup} from '../../styles';
 
-// import styles from './Counter.module.css';
+export default function InfoPage({navigation}) {
+  const {citizenID, phone} = useSelector(state => state.user);
 
-export default function InfoPage() {
   return (
-    <View>
-      <Text>InfoPage</Text>
-    </View>
+    <Container>
+      <Group>
+        <Text>ID:</Text>
+        <Text>{citizenID}</Text>
+      </Group>
+      <Group>
+        <Text>Phone:</Text>
+        <Text>{phone}</Text>
+      </Group>
+      <ButtonGroup>
+        <Button title="Edit" onPress={() => navigation.navigate('Edit')} />
+      </ButtonGroup>
+    </Container>
   );
 }

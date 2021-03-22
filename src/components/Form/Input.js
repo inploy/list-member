@@ -4,25 +4,24 @@ import styled from '@emotion/native';
 import {useFormContext, Controller} from 'react-hook-form';
 
 import {Item, Label, ErrorMessage} from './components';
+import {maskCitizenId, maskPhone} from '../../utils/mask';
 
 const TextInput = styled.TextInput`
   ${({theme, line}) => {
     if (line) {
       return `
-    border-bottom-width:1;
-    border-bottom-color: ${theme.colors.greyInput};
-    border-radius: 0px;
-    `;
+  border-bottom-width:1;
+  border-bottom-color: ${theme.colors.greyInput};
+  border-radius: 0px;
+  `;
     }
     return `
-  border: 1px solid ${theme.colors.secondary};
-  border-radius: 10px;
-  margin: 10px 0;
-  padding: 10px;
-  `;
-  }}
-  background-color: transparent;
-  font-family: Kanit_400Regular;
+border: 1px solid ${theme.colors.secondary};
+border-radius: 10px;
+margin: 10px 0;
+padding: 10px;
+`;
+  }} background-color: transparent;
 `;
 const ErrorBox = styled.View`
   position: ${props => props.errorInside && 'absolute'};
@@ -35,12 +34,24 @@ export const Input = ({
   line = false,
   label,
   style,
-  testID,
   itemStyle = {},
   defaultValue,
+  placeholder,
+  mask,
   errorInside = false,
   ...props
 }) => {
+  const handleChange = (text, onChange) => {
+    if (mask === 'citizenID') {
+      const newValue = maskCitizenId(text);
+      onChange(newValue);
+    }
+    if (mask === 'phone') {
+      const newValue = maskPhone(text);
+      onChange(newValue);
+    }
+  };
+
   const {control, errors} = useFormContext();
   return (
     <Item style={{...itemStyle}}>
@@ -52,13 +63,12 @@ export const Input = ({
             <Item style={itemStyle}>
               <TextInput
                 // ref={register}
-                testID={testID}
                 onBlur={onBlur}
-                onChangeText={value => onChange(value)}
+                placeholder={placeholder}
+                onChangeText={value => handleChange(value, onChange)}
                 value={value && value.toString()}
                 defaultValue={defaultValue}
                 style={style}
-                line={line}
                 {...props}
               />
             </Item>
@@ -84,9 +94,10 @@ Input.propTypes = {
   line: PropTypes.bool,
   label: PropTypes.string,
   value: PropTypes.any,
+  placeholder: PropTypes.string,
+  mask: PropTypes.string,
   style: PropTypes.object,
   itemStyle: PropTypes.object,
   errorInside: PropTypes.bool,
   defaultValue: PropTypes.any,
-  testID: PropTypes.string.isRequired,
 };
