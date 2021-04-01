@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/native';
+import {View} from 'react-native';
 import {FormProvider, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-
-const View = styled.View``;
 
 export const Form = ({defaultValues = {}, children, onSubmit, schema}) => {
   const methods = useForm({

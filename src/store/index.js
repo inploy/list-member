@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import userReducer from './models/user';
+import memberReducer from './models/member';
 
 export default configureStore({
   reducer: {
-    user: userReducer,
+    member: memberReducer,
   },
 });

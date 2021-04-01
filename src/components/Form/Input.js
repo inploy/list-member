@@ -2,27 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/native';
 import {useFormContext, Controller} from 'react-hook-form';
+import TextInputMask from 'react-native-text-input-mask';
 
 import {Item, Label, ErrorMessage} from './components';
-import {maskCitizenId, maskPhone} from '../../utils/mask';
 
-const TextInput = styled.TextInput`
-  ${({theme, line}) => {
-    if (line) {
-      return `
-  border-bottom-width:1;
-  border-bottom-color: ${theme.colors.greyInput};
-  border-radius: 0px;
-  `;
-    }
-    return `
-border: 1px solid ${theme.colors.secondary};
-border-radius: 10px;
-margin: 10px 0;
-padding: 10px;
-`;
-  }} background-color: transparent;
-`;
 const ErrorBox = styled.View`
   position: ${props => props.errorInside && 'absolute'};
   bottom: ${props => props.errorInside && '5px'};
@@ -41,17 +24,6 @@ export const Input = ({
   errorInside = false,
   ...props
 }) => {
-  const handleChange = (text, onChange) => {
-    if (mask === 'citizenID') {
-      const newValue = maskCitizenId(text);
-      onChange(newValue);
-    }
-    if (mask === 'phone') {
-      const newValue = maskPhone(text);
-      onChange(newValue);
-    }
-  };
-
   const {control, errors} = useFormContext();
   return (
     <Item style={{...itemStyle}}>
@@ -61,11 +33,15 @@ export const Input = ({
         render={({onChange, onBlur, value}) => (
           <>
             <Item style={itemStyle}>
-              <TextInput
+              <TextInputMask
                 // ref={register}
                 onBlur={onBlur}
+                mask={mask}
                 placeholder={placeholder}
-                onChangeText={value => handleChange(value, onChange)}
+                onChangeText={value => {
+                  console.log('😇', value);
+                  onChange(value);
+                }}
                 value={value && value.toString()}
                 defaultValue={defaultValue}
                 style={style}

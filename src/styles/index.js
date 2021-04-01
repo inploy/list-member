@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 
 export const Group = styled.View`
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 `;

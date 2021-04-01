@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const Container = ({children, containerStyles}) => {
-  return <SafeAreaView style={containerStyles}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView
+      style={[
+        {
+          flex: 1,
+          padding: 20,
+        },
+        containerStyles,
+      ]}>
+      {children}
+    </SafeAreaView>
+  );
 };
 
 Container.propTypes = {
@@ -17,7 +28,5 @@ Container.propTypes = {
 Container.defaultProps = {
   containerStyles: {
     flex: 1,
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
   },
 };
