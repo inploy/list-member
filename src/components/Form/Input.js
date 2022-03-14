@@ -34,12 +34,10 @@ export const Input = ({
           <>
             <Item style={itemStyle}>
               <TextInputMask
-                // ref={register}
                 onBlur={onBlur}
                 mask={mask}
                 placeholder={placeholder}
                 onChangeText={value => {
-                  console.log('😇', value);
                   onChange(value);
                 }}
                 value={value && value.toString()}
