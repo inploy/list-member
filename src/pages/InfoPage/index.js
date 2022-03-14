@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import theme from '../../theme';
 import {Container} from '../../components/Form';
 import {Group} from '../../styles';
-import {removeMembers} from '../../store/models/member';
+import {removeMember} from '../../store/models/member';
 
 export default function InfoPage({navigation}) {
   const {members} = useSelector(state => state.member);
@@ -23,7 +23,7 @@ export default function InfoPage({navigation}) {
     ]);
 
   const confirmDelete = index => {
-    dispatch(removeMembers({index}));
+    dispatch(removeMember({index}));
   };
   return (
     <Container>

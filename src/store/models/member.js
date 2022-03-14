@@ -13,7 +13,7 @@ export const memberSlice = createSlice({
     editMembers: (state, action) => {
       state.members[action.payload.id] = action.payload.member;
     },
-    removeMembers: (state, action) => {
+    removeMember: (state, action) => {
       state.members = filter(state.members, (o, index) => {
         return index !== action.payload.index;
       });
@@ -21,6 +21,6 @@ export const memberSlice = createSlice({
   },
 });
 
-export const {setMembers, editMembers, removeMembers} = memberSlice.actions;
+export const {setMembers, editMembers, removeMember} = memberSlice.actions;
 
 export default memberSlice.reducer;
